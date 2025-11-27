@@ -1,8 +1,6 @@
 # RF.SkipToSongSelect
  A BepInEx mod for RF that skips the Main Menu and sends you directly to Song Select.
  
- <a href="taikomodmanager:https://github.com/KenZync/RF.SkipToSongSelect"> <img src="Resources/InstallButton.png" alt="One-click Install using the Taiko Mod Manager" width="256"/> </a>
- 
 # Requirements
  Visual Studio 2022 or newer\
  Taiko: RF
