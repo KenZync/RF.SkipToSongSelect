@@ -4,23 +4,18 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ModName>ModTemplate</ModName>
-    <ModVersion>0.0.1</ModVersion>
-    <Description>A Rhythm Festival template for mod creation.</Description>
+    <ModName>SkipToSongSelect</ModName>
+    <ModVersion>1.0.0</ModVersion>
+    <Description>A BepInEx mod for RF that skips the Main Menu and sends you directly to Song Select.</Description>
   </PropertyGroup>
   
   <Target Name="UserFile" AfterTargets="PreBuildEvent">
-    <Copy
-      Condition="!Exists('.\$(MSBuildProjectDir)\$(ModName).csproj.user')"
-      SourceFiles="..\$(MSBuildProjectDir)\Resources\Template.csproj.user"
-      DestinationFiles=".\$(MSBuildProjectDir)\$(ModName).csproj.user"/>
-    <Error
-      Condition="$(GameDir)==''"
-      Text="Set the GameDir variable in .csproj.user file to your Rhythm Festival executable directory."/>
+    <Copy Condition="!Exists('.\$(MSBuildProjectDir)\$(ModName).csproj.user')" SourceFiles="..\$(MSBuildProjectDir)\Resources\Template.csproj.user" DestinationFiles=".\$(MSBuildProjectDir)\$(ModName).csproj.user" />
+    <Error Condition="$(GameDir)==''" Text="Set the GameDir variable in .csproj.user file to your Rhythm Festival executable directory." />
   </Target>
 
   <PropertyGroup>
-    <AssemblyName>com.DB.RF.$(ModName)</AssemblyName>
+    <AssemblyName>RF.$(ModName)</AssemblyName>
     <Version>$(ModVersion)</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>

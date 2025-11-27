@@ -4,28 +4,24 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using BepInEx.Configuration;
-using ModTemplate.Plugins;
+using SkipToSongSelect.Plugins;
 using UnityEngine;
 using System.Collections;
 using SaveProfileManager.Plugins;
 using System.Reflection;
 
-namespace ModTemplate
+namespace SkipToSongSelect
 {
     [BepInPlugin(MyPluginInfo.PLUGIN_GUID, ModName, MyPluginInfo.PLUGIN_VERSION)]
     public class Plugin : BasePlugin
     {
-        public const string ModName = "ModTemplate";
+        public const string ModName = "SkipToSongSelect";
 
         public static Plugin Instance;
         private Harmony _harmony = null;
         public new static ManualLogSource Log;
 
         public ConfigEntry<bool> ConfigEnabled;
-        //public ConfigEntry<string> ConfigSongTitleLanguageOverride;
-        //public ConfigEntry<float> ConfigFlipInterval;
-
-
 
         public override void Load()
         {
@@ -56,16 +52,6 @@ namespace ModTemplate
                    true,
                    "Enables the mod.");
             }
-
-            //ConfigSongTitleLanguageOverride = config.Bind("General",
-            //    "SongTitleLanguageOverride",
-            //    "JP",
-            //    "Sets the song title to the selected language. (JP, EN, FR, IT, DE, ES, TW, CN, KO)");
-
-            //ConfigFlipInterval = config.Bind("General",
-            //    "FlipInterval",
-            //    3f,
-            //    "How quickly the difficulty flips between oni and ura.");
         }
 
         private void SetupHarmony()
@@ -81,10 +67,8 @@ namespace ModTemplate
             if (enabled)
             {
                 bool result = true;
-                // If any PatchFile fails, result will become false
-                //result &= Instance.PatchFile(typeof(SwapJpEngTitlesPatch));
-                //result &= Instance.PatchFile(typeof(AdjustUraFlipTimePatch));
-                //SwapJpEngTitlesPatch.SetOverrideLanguages();
+                result &= Instance.PatchFile(typeof(SkipToSongSelectPatch));
+
                 if (result)
                 {
                     Logger.Log($"Plugin {MyPluginInfo.PLUGIN_NAME} is loaded!");
@@ -149,7 +133,7 @@ namespace ModTemplate
             plugin.AssignUnloadFunction(UnloadPlugin);
             //plugin.AssignReloadSaveFunction(ReloadPlugin);
             plugin.AssignConfigSetupFunction(SetupConfig);
-            plugin.AddToManager();
+            plugin.AddToManager(true);
         }
 
         private bool IsSaveManagerLoaded()
